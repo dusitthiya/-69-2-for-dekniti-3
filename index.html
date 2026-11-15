@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>รหัสวิชากฎหมายกับภาษาอังกฤษ เทอม 69/2</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f6fc;
+  color: #1e293b;
+}
+
+header {
+  background: linear-gradient(135deg,#2563eb,#4f46e5);
+  color: white;
+  padding: 35px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+
+header p {
+  margin: 0;
+  opacity: .85;
+}
+
+.container {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 0 18px;
+}
+
+.search {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.search:focus {
+  border-color: #2563eb;
+}
+
+.category {
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.subject {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 13px;
+  box-shadow: 0 3px 12px #00000008;
+}
+
+.subject-name {
+  font-weight: bold;
+  font-size: 17px;
+  margin-bottom: 14px;
+}
+
+.code-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.code {
+  color: #2563eb;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  padding: 11px 17px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.empty {
+  text-align: center;
+  padding: 35px;
+  color: #94a3b8;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+@media(max-width:480px) {
+  header h1 {
+    font-size: 24px;
+  }
+
+  .subject {
+    padding: 16px;
+  }
+
+  .code {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📚 คลังรหัสวิชา</h1>
+  <p>ค้นหารายวิชาและคัดลอกรหัสได้ง่าย ๆ</p>
+</header>
+
+<main class="container">
+
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="🔍 ค้นหาชื่อวิชาหรือรหัสวิชา..."
+  >
+
+  <p class="category" id="count"></p>
+
+  <div id="subjects"></div>
+
+</main>
+
+<footer>
+  © 2026 คลังรหัสวิชา
+</footer>
+
+<script>
+
+// =================================
+// เพิ่มหรือแก้ไขรายวิชาตรงนี้
+// =================================
+
+
+const subjects = [
+  // ===== วิชาบังคับ =====
+  {
+    category: "วิชาบังคับ",
+    name: "กฎหมายพยาน",
+    code: "01453344"
+  },
+  {
+    category: "วิชาบังคับ",
+    name: "วิ.แพ่ง 2",
+    code: "01453345"
+  },
+  {
+    category: "วิชาบังคับ",
+    name: "กฎหมายระหว่างประเทศแผนกคดีบุคคล",
+    code: "01453351"
+  },
+  {
+    category: "วิชาบังคับ",
+    name: "กฎหมายระหว่างประเทศแผนกคดีเมือง",
+    code: "01453352"
+  },
+  {
+    category: "วิชาบังคับ",
+    name: "กฎหมายทรัพย์สินทางปัญญา",
+    code: "01453376"
+  },
+
+  // ===== วิชาเลือก =====
+  {
+    category: "วิชาเลือก",
+    name: "กฎหมายการเกษตรฯ",
+    code: "01453361"
+  },
+  {
+    category: "วิชาเลือก",
+    name: "ว่าความและศาลจำลอง",
+    code: "01453381"
+  },
+  {
+    category: "วิชาเลือก",
+    name: "หลักวิชาชีพนักกฎหมาย",
+    code: "01453411"
+  },
+  {
+    category: "วิชาเลือก",
+    name: "อาชญาวิทยา",
+    code: "01453482"
+  },
+  {
+    category: "วิชาเลือก",
+    name: "สัมมนา",
+    code: "01453497"
+  },
+
+  // ===== ภาษาอังกฤษ =====
+  {
+    category: "ภาษาอังกฤษ",
+    name: "ภาษาอังกฤษ 3",
+    code: "01355103"
+  },
+  {
+    category: "ภาษาอังกฤษ",
+    name: "English and Culture through Songs",
+    code: "01355108"
+  },
+  {
+    category: "ภาษาอังกฤษ",
+    name: "Essential English Listening-Speaking Skills",
+    code: "01355109"
+  },
+  {
+    category: "ภาษาอังกฤษ",
+    name: "Essential English Reading Skills",
+    code: "01355119"
+  }
+];
+
+// =================================
+
+const container = document.getElementById("subjects");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+
+
+function render() {
+  const keyword = search.value.toLowerCase().trim();
+  container.innerHTML = "";
+
+  const categories = [
+    "วิชาบังคับ",
+    "วิชาเลือก",
+    "ภาษาอังกฤษ"
+  ];
+
+  let total = 0;
+
+  categories.forEach(category => {
+    const filtered = subjects.filter(item =>
+      item.category === category &&
+      (
+        item.name.toLowerCase().includes(keyword) ||
+        item.code.toLowerCase().includes(keyword)
+      )
+    );
+
+    if (filtered.length === 0) return;
+
+    total += filtered.length;
+
+    const heading = document.createElement("h2");
+    heading.textContent =
+      (category === "วิชาบังคับ" ? "📘 " :
+       category === "วิชาเลือก" ? "📗 " : "📙 ") + category;
+
+    heading.style.marginTop = "30px";
+    heading.style.color =
+      category === "วิชาบังคับ" ? "#2563eb" :
+      category === "วิชาเลือก" ? "#16a34a" : "#d97706";
+
+    container.appendChild(heading);
+
+    filtered.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "subject";
+
+      const name = document.createElement("div");
+      name.className = "subject-name";
+      name.textContent = item.name;
+
+      const row = document.createElement("div");
+      row.className = "code-row";
+
+      const code = document.createElement("span");
+      code.className = "code";
+      code.textContent = item.code;
+
+      const button = document.createElement("button");
+      button.textContent = "📋 คัดลอก";
+
+      button.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(item.code);
+          button.textContent = "✓ คัดลอกแล้ว";
+          setTimeout(() => {
+            button.textContent = "📋 คัดลอก";
+          }, 1500);
+        } catch {
+          alert("ไม่สามารถคัดลอกได้ กรุณาเปิดผ่าน HTTPS");
+        }
+      };
+
+      row.append(code, button);
+      card.append(name, row);
+      container.appendChild(card);
+    });
+  });
+
+  count.textContent = "พบทั้งหมด " + total + " รายวิชา";
+
+  if (total === 0) {
+    container.innerHTML =
+      '<div class="empty">ไม่พบรายวิชาที่ค้นหา</div>';
+  }
+}
+
+search.addEventListener("input", render);
+
+render();
+
+</script>
+
+</body>
+</html>
